@@ -5,7 +5,12 @@
 This is a weather service application used to know the weather in different cities to which user is subscribed. Here, there are admin and user roles.
 ---
 
----
+***
+
+Above all in order to start using this service user must first register and then login to the system. After that using the token which is generated during the login process user can access to the service.
+ All that users and admins can do is described below.
+
+***
 
 ### [Admin]()
 
@@ -30,8 +35,6 @@ This is a weather service application used to know the weather in different citi
 
 
 ***
-* after being registered and logged in can see the list of cities and subscribe to them and get the weather information
-  of all them (all cities).
 
 * In order to create user with admin role, firstly register new user after that change the role in database from "USER"
 to "ADMIN" manually.
