@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.token.RefreshTokenRequest;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Authorization", description = "Authorization API")
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 

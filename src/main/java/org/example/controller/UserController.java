@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.example.domain.City;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "User", description = "User API")
 @RequestMapping("/api/v1/user")
 public class UserController {
 
@@ -37,6 +39,15 @@ public class UserController {
             @NonNull @Valid SubscribeToCityDTO dto
     ) {
         return ResponseEntity.ok(userService.subscribeToCity(dto));
+    }
+
+    @Operation(summary = "This API is used for unsubscribing from a city",
+            description = "This API is used for unsubscribing from a city")
+    @PutMapping("/unsubscribe-from-city")
+    public ResponseEntity<City> unsubscribeFromCity(
+            @NonNull @Valid SubscribeToCityDTO dto
+    ) {
+        return ResponseEntity.ok(userService.unsubscribeToCity(dto));
     }
 
     @Operation(summary = "This API is used for getting the information about the weather in subscribed cities ",

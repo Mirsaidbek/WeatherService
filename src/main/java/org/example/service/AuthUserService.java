@@ -4,6 +4,7 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import org.example.config.jwt.JwtUtils;
 import org.example.domain.AuthUser;
+import org.example.domain.User;
 import org.example.dto.token.RefreshTokenRequest;
 import org.example.dto.token.TokenRequest;
 import org.example.dto.token.TokenResponse;
@@ -46,10 +47,6 @@ public class AuthUserService {
                 .build();
 
         authUserRepository.save(authUser);
-
-        System.out.println("save.getId() = " + authUser.getId());
-        System.out.println("save.getUsername() = " + authUser.getUsername());
-        System.out.println(authUser);
         AuthUser authUser1 = authUserRepository.save(authUser);
         userService.createUser(authUser1.getId(), dto.getName(), dto.getSurname());
     }

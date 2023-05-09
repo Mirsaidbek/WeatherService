@@ -21,20 +21,17 @@ import static org.example.enums.TokenType.REFRESH;
 @Component
 public class JwtUtils {
 
-
     @Value("${jwt.access.token.expiry}")
     private long accessTokenExpiry;
 
     @Value("${jwt.access.token.secret.key}")
     public String ACCESS_TOKEN_SECRET_KEY;
 
-
     @Value("${jwt.refresh.token.expiry}")
     private long refreshTokenExpiry;
 
     @Value("${jwt.refresh.token.secret.key}")
     public String REFRESH_TOKEN_SECRET_KEY;
-
 
     public TokenResponse generateToken(@NonNull String username, Role role) {
         TokenResponse tokenResponse = new TokenResponse();

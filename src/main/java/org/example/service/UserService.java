@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.domain.AuthUser;
 import org.example.domain.City;
 import org.example.domain.User;
+import org.example.dto.AppErrorDTO;
 import org.example.dto.user.GetUserDetailsDTO;
 import org.example.dto.user.SubscribeToCityDTO;
 import org.example.dto.weather.GetWeatherInfoDTO;
@@ -61,7 +62,7 @@ public class UserService {
                 new RuntimeException("City not found"));
 
         if (user.getCities().contains(city)) {
-            throw new RuntimeException("You already subscribed to this city");
+            throw new RuntimeException("You already subscribed to city: " + dto.getCityName() + ", country: " + dto.getCountryName() + " city");
         }
 
         user.getCities().add(city);
@@ -113,13 +114,31 @@ public class UserService {
 
     }
 
-    public void createUser(Integer id, String name, String surname) {
+    public User createUser(Integer id, String name, String surname) {
         User user = User.builder()
                 .authUserId(id)
                 .name(name)
                 .surname(surname)
                 .build();
 
+        return userRepository.save(user);
+    }
+
+    public City unsubscribeToCity(SubscribeToCityDTO dto) {
+        User user = userRepository.findByUsername(dto.getUsername()).orElseThrow(() ->
+                new RuntimeException("User not found"));
+
+        City city = cityRepository.findActiveCityByName(dto.getCityName(), dto.getCountryName()).orElseThrow(() ->
+                new RuntimeException("City not found"));
+
+        if (!user.getCities().contains(city)) {
+            throw new RuntimeException("You are not subscribed to city: " + dto.getCityName() + ", country: " + dto.getCountryName() + " city");
+        }
+
+        user.getCities().remove(city);
+
         userRepository.save(user);
+
+        return city;
     }
 }
